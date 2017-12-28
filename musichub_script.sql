@@ -9,6 +9,14 @@ CREATE TABLE IF NOT EXISTS Musician (
    name varchar(100) not null,
    email varchar(70) not null,
    password varchar(40) not null,
+   birth_date DATEemail
+)
+
+CREATE TABLE IF NOT EXISTS Musician (
+   id int auto_increment primary key,
+   name varchar(100) not null,
+   email varchar(70) not null UNIQUE,
+   password varchar(40) not null,
    birth_date DATE
 )
 
@@ -48,6 +56,7 @@ CREATE TABLE IF NOT EXISTS MusicalProjectInstrument(
 	musical_project_id int not null,
 	foreign key (musical_project_id) references MusicalProject(id),
 	instrument_id int not null,
+    is_base_instrument bool not null,
 	foreign key (instrument_id) references Instrument(id)    
 )
 

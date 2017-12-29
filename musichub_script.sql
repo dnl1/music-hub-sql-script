@@ -25,6 +25,13 @@ CREATE TABLE IF NOT EXISTS MusicalGenre(
     name varchar(35) not null
 )
 
+INSERT INTO MusicalGenre(name) VALUES("Punk")
+INSERT INTO MusicalGenre(name) VALUES("Pop Punk")
+INSERT INTO MusicalGenre(name) VALUES("Hard Rock")
+INSERT INTO MusicalGenre(name) VALUES("Rock Classico")
+INSERT INTO MusicalGenre(name) VALUES("Heavy Metal")
+
+
 CREATE TABLE IF NOT EXISTS MusicalProject (
    id int auto_increment primary key,
    name varchar(100) not null,
@@ -50,6 +57,9 @@ CREATE TABLE IF NOT EXISTS ContributionType(
 	id int auto_increment primary key,
 	name varchar(20) not null    
 )
+
+INSERT INTO ContributionType(name) VALUES ("Contribuição Livre")
+INSERT INTO ContributionType(name) VALUES ("Contribuição Privada")
 
 CREATE TABLE IF NOT EXISTS MusicalProjectInstrument(
 	id int auto_increment primary key,

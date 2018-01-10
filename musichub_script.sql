@@ -1,5 +1,4 @@
 -- SCHEMA
-
 CREATE DATABASE MusicHub
 
 USE MusicHub
@@ -9,7 +8,7 @@ CREATE TABLE IF NOT EXISTS Musician (
    name varchar(100) not null,
    email varchar(70) not null,
    password varchar(40) not null,
-   birth_date DATEemail
+   birth_date DATE
 )
 
 CREATE TABLE IF NOT EXISTS Musician (
@@ -25,22 +24,17 @@ CREATE TABLE IF NOT EXISTS MusicalGenre(
     name varchar(35) not null
 )
 
-INSERT INTO MusicalGenre(name) VALUES("Punk")
-INSERT INTO MusicalGenre(name) VALUES("Pop Punk")
-INSERT INTO MusicalGenre(name) VALUES("Hard Rock")
-INSERT INTO MusicalGenre(name) VALUES("Rock Classico")
-INSERT INTO MusicalGenre(name) VALUES("Heavy Metal")
-
+INSERT INTO MusicalGenre(name) VALUES("Punk"),("Pop Punk"),("Hard Rock"),("Rock Classico"),("Heavy Metal")
 
 CREATE TABLE IF NOT EXISTS MusicalProject (
    id int auto_increment primary key,
    name varchar(100) not null,
    owner_id int not null,
-   gender_id int not null,
+   musical_genre_id int not null,
    created_at DateTime not null,
    updated_at DateTime not null,
    foreign key (owner_id) references Musician(id),
-   foreign key (gender_id) references MusicalGenre(id)
+   foreign key (musical_genre_id) references MusicalGenre(id)
 )
 
 CREATE TABLE IF NOT EXISTS Instrument(
@@ -48,18 +42,23 @@ CREATE TABLE IF NOT EXISTS Instrument(
 	name varchar(100) not null    
 )
 
+INSERT INTO Instrument (name) VALUES ("Guitar"),("Bass"),("Drums"),("Voice"),("Piano")
+
 CREATE TABLE IF NOT EXISTS ContributionStatus(
 	id int auto_increment primary key,
 	name varchar(50) not null    
 )
+
+SELECT * FROM Musician
+
+INSERT INTO ContributionStatus(name) VALUES ("Waiting for approval"),("Approved"),("Refused")
 
 CREATE TABLE IF NOT EXISTS ContributionType(
 	id int auto_increment primary key,
 	name varchar(20) not null    
 )
 
-INSERT INTO ContributionType(name) VALUES ("Contribuição Livre")
-INSERT INTO ContributionType(name) VALUES ("Contribuição Privada")
+INSERT INTO ContributionType(name) VALUES ("Free Contribution"),("Private Contribution")
 
 CREATE TABLE IF NOT EXISTS MusicalProjectInstrument(
 	id int auto_increment primary key,
@@ -74,19 +73,22 @@ CREATE TABLE IF NOT EXISTS Contribution(
 	id int auto_increment primary key,
     musician_id int not null,
     foreign key (musician_id) references Musician(id),
-    musical_project_instrument_id int not null,
+    musical_project_instrument_id int,
     foreign key (musical_project_instrument_id) references MusicalProjectInstrument(id),
-	musical_project_id int not null,
+	musical_project_id int,
     foreign key (musical_project_id) references MusicalProject(id),
 	status_id int not null,
     foreign key (status_id) references ContributionStatus(id),
 	type_id int not null,
     foreign key (type_id) references ContributionType(id),
-    gender_id int not null,
-	foreign key (gender_id) references MusicalGenre(id),
+    musical_genre_id int not null,
+	foreign key (musical_genre_id) references MusicalGenre(id),
     timing varchar(8) not null,
     created_at Datetime not null    
 )
+
+SELECT * FROM ContributionType
+SELECT * FROM ContributionStatus
 
 CREATE TABLE IF NOT EXISTS RateMusician(
 	id int auto_increment primary key,

@@ -49,9 +49,9 @@ CREATE TABLE IF NOT EXISTS ContributionStatus(
 	name varchar(50) not null    
 )
 
-SELECT * FROM Musician
-
-INSERT INTO ContributionStatus(name) VALUES ("Waiting for approval"),("Approved"),("Refused")
+SELECT * FROM MusicalProject
+SELECT * FROM Contribution
+INSERT INTO ContributionStatus(name) VALUES ("Waiting for approval"),("Approved"),("Refused")("Free Contribution")
 
 CREATE TABLE IF NOT EXISTS ContributionType(
 	id int auto_increment primary key,
@@ -87,9 +87,6 @@ CREATE TABLE IF NOT EXISTS Contribution(
     created_at Datetime not null    
 )
 
-SELECT * FROM ContributionType
-SELECT * FROM ContributionStatus
-
 CREATE TABLE IF NOT EXISTS RateMusician(
 	id int auto_increment primary key,
     musician_owner_id int not null,
@@ -98,6 +95,16 @@ CREATE TABLE IF NOT EXISTS RateMusician(
     foreign key (musician_target_id) references Musician(id),
     rate_value int(5) not null
 )
+
+CREATE TABLE IF NOT EXISTS RateContribution(
+	id int auto_increment primary key,
+    musician_id int not null,
+    foreign key (musician_id) references Musician(id),
+	contribution_id int not null,
+    foreign key (contribution_id) references Contribution(id),
+    rate_value int(5) not null
+)
+
 
 CREATE TABLE IF NOT EXISTS RateMusicalProject(
 	id int auto_increment primary key,

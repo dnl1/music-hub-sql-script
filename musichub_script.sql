@@ -11,14 +11,6 @@ CREATE TABLE IF NOT EXISTS Musician (
    birth_date DATE
 )
 
-CREATE TABLE IF NOT EXISTS Musician (
-   id int auto_increment primary key,
-   name varchar(100) not null,
-   email varchar(70) not null UNIQUE,
-   password varchar(40) not null,
-   birth_date DATE
-)
-
 CREATE TABLE IF NOT EXISTS MusicalGenre(
 	id int auto_increment primary key,
     name varchar(35) not null
@@ -49,9 +41,7 @@ CREATE TABLE IF NOT EXISTS ContributionStatus(
 	name varchar(50) not null    
 )
 
-SELECT * FROM MusicalProject
-SELECT * FROM Contribution
-INSERT INTO ContributionStatus(name) VALUES ("Waiting for approval"),("Approved"),("Refused")("Free Contribution")
+INSERT INTO ContributionStatus(name) VALUES ("Waiting for approval"),("Approved"),("Refused")
 
 CREATE TABLE IF NOT EXISTS ContributionType(
 	id int auto_increment primary key,
@@ -113,4 +103,12 @@ CREATE TABLE IF NOT EXISTS RateMusicalProject(
 	musical_project_id int not null,
     foreign key (musical_project_id) references MusicalProject(id),
     rate_value int(5) not null
+)
+
+CREATE TABLE IF NOT EXISTS BearerAuthentication(
+    id int auto_increment primary key,
+    access_token nvarchar(200),
+    client nvarchar(100),
+    uid nvarchar(150),
+    expiry datetime null
 )

@@ -1,7 +1,7 @@
 -- SCHEMA
-CREATE DATABASE MusicHub
+CREATE DATABASE musichub
 
-USE MusicHub
+USE musichub
 
 CREATE TABLE IF NOT EXISTS Musician (
    id int auto_increment primary key,
@@ -10,6 +10,9 @@ CREATE TABLE IF NOT EXISTS Musician (
    password varchar(40) not null,
    birth_date DATE
 )
+
+ALTER TABLE Musician
+ADD UNIQUE (email);
 
 CREATE TABLE IF NOT EXISTS MusicalGenre(
 	id int auto_increment primary key,
@@ -23,6 +26,7 @@ CREATE TABLE IF NOT EXISTS MusicalProject (
    name varchar(100) not null,
    owner_id int not null,
    musical_genre_id int not null,
+   finish int null,
    created_at DateTime not null,
    updated_at DateTime not null,
    foreign key (owner_id) references Musician(id),
@@ -34,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Instrument(
 	name varchar(100) not null    
 )
 
-INSERT INTO Instrument (name) VALUES ("Guitar"),("Bass"),("Drums"),("Voice"),("Piano")
+INSERT INTO Instrument (name) VALUES ("Lead Guitar"),("Bass"),("Drums"),("Voice"),("Piano"),("Rhythm Guitar")
 
 CREATE TABLE IF NOT EXISTS ContributionStatus(
 	id int auto_increment primary key,
@@ -112,3 +116,5 @@ CREATE TABLE IF NOT EXISTS BearerAuthentication(
     uid nvarchar(150),
     expiry datetime null
 )
+
+SELECT * FROM Musician
